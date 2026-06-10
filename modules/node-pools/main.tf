@@ -14,7 +14,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "this" {
 
   vm_size              = each.value.vm_size
   zones                = each.value.availability_zones
-  auto_scaling_enabled = true
+  enable_auto_scaling  = true
   min_count            = each.value.min_count
   max_count            = each.value.max_count
   os_disk_size_gb      = each.value.os_disk_size_gb

@@ -51,7 +51,7 @@ resource "azurerm_kubernetes_cluster" "this" {
     only_critical_addons_enabled = var.system_node_pool.only_critical_addons
     os_disk_size_gb      = var.system_node_pool.os_disk_size_gb
     os_disk_type         = "Ephemeral"
-    auto_scaling_enabled = true
+    enable_auto_scaling  = true
     min_count            = var.system_node_pool.min_count
     max_count            = var.system_node_pool.max_count
     type                 = "VirtualMachineScaleSets"

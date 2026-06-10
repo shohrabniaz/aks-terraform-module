@@ -12,16 +12,16 @@ resource "azurerm_kubernetes_cluster_node_pool" "this" {
   kubernetes_cluster_id = var.cluster_id
   vnet_subnet_id        = var.vnet_subnet_id
 
-  vm_size              = each.value.vm_size
-  zones                = each.value.availability_zones
-  enable_auto_scaling  = true
-  min_count            = each.value.min_count
-  max_count            = each.value.max_count
-  os_disk_size_gb      = each.value.os_disk_size_gb
-  os_disk_type         = "Ephemeral"
-  node_labels          = each.value.node_labels
-  node_taints          = each.value.node_taints
-  mode                 = "User"
+  vm_size             = each.value.vm_size
+  zones               = each.value.availability_zones
+  enable_auto_scaling = true
+  min_count           = each.value.min_count
+  max_count           = each.value.max_count
+  os_disk_size_gb     = each.value.os_disk_size_gb
+  os_disk_type        = "Ephemeral"
+  node_labels         = each.value.node_labels
+  node_taints         = each.value.node_taints
+  mode                = "User"
 
   # Spot config — only meaningful for non-critical workloads.
   priority        = each.value.spot_enabled ? "Spot" : "Regular"

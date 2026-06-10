@@ -16,14 +16,14 @@ resource "azurerm_kubernetes_cluster" "this" {
   resource_group_name = var.resource_group_name
   dns_prefix          = var.name
 
-  kubernetes_version  = var.kubernetes_version
-  sku_tier            = var.sku_tier
+  kubernetes_version = var.kubernetes_version
+  sku_tier           = var.sku_tier
 
-  private_cluster_enabled    = var.private_cluster_enabled
-  local_account_disabled     = true
-  azure_policy_enabled       = var.enable_azure_policy
-  oidc_issuer_enabled        = var.enable_workload_identity
-  workload_identity_enabled  = var.enable_workload_identity
+  private_cluster_enabled   = var.private_cluster_enabled
+  local_account_disabled    = true
+  azure_policy_enabled      = var.enable_azure_policy
+  oidc_issuer_enabled       = var.enable_workload_identity
+  workload_identity_enabled = var.enable_workload_identity
 
   api_server_access_profile {
     authorized_ip_ranges = var.private_cluster_enabled ? null : var.authorized_ip_ranges
@@ -44,17 +44,17 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   default_node_pool {
-    name                 = "system"
-    vm_size              = var.system_node_pool.vm_size
-    vnet_subnet_id       = var.vnet_subnet_id
-    zones                = var.system_node_pool.availability_zones
+    name                         = "system"
+    vm_size                      = var.system_node_pool.vm_size
+    vnet_subnet_id               = var.vnet_subnet_id
+    zones                        = var.system_node_pool.availability_zones
     only_critical_addons_enabled = var.system_node_pool.only_critical_addons
-    os_disk_size_gb      = var.system_node_pool.os_disk_size_gb
-    os_disk_type         = "Ephemeral"
-    enable_auto_scaling  = true
-    min_count            = var.system_node_pool.min_count
-    max_count            = var.system_node_pool.max_count
-    type                 = "VirtualMachineScaleSets"
+    os_disk_size_gb              = var.system_node_pool.os_disk_size_gb
+    os_disk_type                 = "Ephemeral"
+    enable_auto_scaling          = true
+    min_count                    = var.system_node_pool.min_count
+    max_count                    = var.system_node_pool.max_count
+    type                         = "VirtualMachineScaleSets"
     upgrade_settings {
       max_surge = "33%"
     }

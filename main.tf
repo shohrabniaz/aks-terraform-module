@@ -22,12 +22,12 @@ resource "azurerm_resource_group" "this" {
 module "monitoring" {
   source = "./modules/monitoring"
 
-  enabled                    = var.log_analytics_workspace_id == null
-  name                       = "${var.name}-laws"
-  location                   = azurerm_resource_group.this.location
-  resource_group_name        = azurerm_resource_group.this.name
-  retention_in_days          = var.log_retention_days
-  tags                       = var.tags
+  enabled             = var.log_analytics_workspace_id == null
+  name                = "${var.name}-laws"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+  retention_in_days   = var.log_retention_days
+  tags                = var.tags
 }
 
 locals {

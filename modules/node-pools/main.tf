@@ -6,6 +6,9 @@
 ################################################################################
 
 resource "azurerm_kubernetes_cluster_node_pool" "this" {
+  # Documented Checkov risk-acceptance (see modules/cluster/main.tf for rationale):
+  # checkov:skip=CKV_AZURE_227:Host-based encryption (EncryptionAtHost) needs the subscription-level feature and is unsupported on some VM sizes; left to the caller rather than forced on every pool.
+  # checkov:skip=CKV_AZURE_168:Azure CNI Overlay default max_pods (250) already exceeds the 50-pod minimum; max_pods is intentionally not pinned.
   for_each = var.pools
 
   name                  = each.key

@@ -11,6 +11,14 @@
 ################################################################################
 
 resource "azurerm_kubernetes_cluster" "this" {
+  # Checkov risk-acceptance notes. These are documented, auditable suppressions,
+  # not blanket exemptions: any new finding still fails CI. Each control below is
+  # either a false positive from static analysis or a deliberate scope decision.
+  # checkov:skip=CKV_AZURE_117:OS disks are Ephemeral and encrypted with platform-managed keys. Customer-managed disk encryption sets need a caller-owned Key Vault + DiskEncryptionSet, which is intentionally out of scope for this bring-your-own-infra module.
+  # checkov:skip=CKV_AZURE_227:Host-based encryption (EncryptionAtHost) requires the subscription-level feature to be registered and is unsupported on several VM sizes; forcing it unconditionally would break applies, so it is left to the caller.
+  # checkov:skip=CKV_AZURE_232:only_critical_addons_enabled is driven by var.system_node_pool.only_critical_addons and defaults to true. Checkov cannot resolve the optional-object default statically, so this is a false positive.
+  # checkov:skip=CKV_AZURE_171:The Kubernetes minor version is operator-controlled by design and pinned via var.kubernetes_version; an automatic upgrade channel is intentionally not forced so version bumps stay an explicit operator decision.
+  # checkov:skip=CKV_AZURE_168:Azure CNI in Overlay mode is used, whose default max_pods (250) already exceeds the 50-pod minimum; max_pods is deliberately not pinned so the overlay default applies.
   name                = var.name
   location            = var.location
   resource_group_name = var.resource_group_name
